@@ -44,8 +44,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AnimationManager.js" />
+     <Compile Include="Assets\Scripts\BackgroundScroller.js" />
      <Compile Include="Assets\Scripts\MeleeAvatarScript.js" />
-     <Compile Include="Assets\Scripts\PuzzleScript.js" />
+     <Compile Include="Assets\Scripts\PuzzleManager.js" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
