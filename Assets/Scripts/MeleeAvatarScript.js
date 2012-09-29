@@ -15,6 +15,12 @@ function Start () {
 }
 
 function Update () {
+
+	this.transform.localPosition.x += 0.01;
+	if (this.transform.position.x >= Screen.width) {
+		this.transform.localPosition.x = 1;
+	}
+	
 #if UNITY_EDITOR
 	if (Input.GetMouseButtonDown(0)) {
 		Run();
