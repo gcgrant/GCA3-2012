@@ -1,3 +1,4 @@
+Library/
 Temp/
-.DS_STORE
-/Library
+*.pidb
+.DS_Store
