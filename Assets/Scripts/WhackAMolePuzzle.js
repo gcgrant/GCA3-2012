@@ -17,7 +17,7 @@ var puzzleManager : PuzzleManager;
 //call me to Init, difficulty should be one of "easy", "medium", or "hard"
 public function Init(difficulty : String) {
 	if (difficulty == "easy") {
-		delayLowerRange = 2;
+		delayLowerRange = 1.5;
 		delayUpperRange = 3;
 		numMoles = numMolesRemaining = 12;
 	}
@@ -36,7 +36,7 @@ public function Init(difficulty : String) {
 	}
 }
 
-function Start () {
+function OnEnable () {
 	Init("easy");
 }
 

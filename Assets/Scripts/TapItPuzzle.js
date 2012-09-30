@@ -6,6 +6,7 @@ public var shrinkCircle : AnimationClip;
 public var circleMaterial : UnityEngine.Material[];
 public var puzzleCamera : Camera;
 public var successMaterial : UnityEngine.Material;
+public var puzzleManager : PuzzleManager;
 //privates
 private var _animation : Animation[];
 private var _numOfCirclesToGenerate : int;
@@ -13,7 +14,8 @@ private var _circleToActivateNext : int;
 private var currentlyAnimating : boolean;
 private var hit : RaycastHit;
 private var successfullyHit : int;
-function Start () {
+
+function OnEnable () {
 	//_animation = touchCircles[0].GetComponent(Animation);
 	successfullyHit = 0;
 	touchCircle.SetActiveRecursively(false);
@@ -25,7 +27,7 @@ function Start () {
 	var pixelRect = puzzleCamera.pixelRect;
 	
 	var rect = puzzleCamera.rect;
-	Debug.Log( pixelRect.yMax + " " + pixelRect.yMin);
+//	Debug.Log( pixelRect.yMax + " " + pixelRect.yMin);
 	var xDistance = pixelRect.width;
 	var yPos : float;
 	for (var i=0; i < _numOfCirclesToGenerate; i++)
@@ -45,6 +47,13 @@ function Start () {
 		_animation[i] = touchCircles[i].GetComponent(Animation);
 		_animation[i].wrapMode = WrapMode.Once;
 	} 
+}
+
+
+function OnDisable() {
+	for (var i = 0; i <  touchCircles.length; i++) {
+		Destroy(touchCircles[i]);
+	}
 }
 
 function activateAnimation ()
@@ -102,13 +111,12 @@ function Update ()
 	{
 		if (successfullyHit == _numOfCirclesToGenerate)
 		{
-			PuzzleManager.Win();
+			puzzleManager.Win();
 		}
 		else
 		{
-			PuzzleManager.Lose();
+			puzzleManager.Lose();
 		}
 	}
-	
-	
+
 }

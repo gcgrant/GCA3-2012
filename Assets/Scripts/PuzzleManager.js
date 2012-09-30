@@ -5,25 +5,32 @@ var animationManager : AnimationManager;
 var whackAMolePuzzle : WhackAMolePuzzle;
 var tapPuzzle : TapItPuzzle;
 
+var difficulty  = "easy";
+
 private var currentPuzzle : GameObject;
+private var puzzles : Array;
 
 function Start() {
 
-	var puzzles = new Array(whackAMolePuzzle.gameObject, tapPuzzle.gameObject);
-	
-	//pick a puzzle...
-	currentPuzzle = puzzles[0];
-	currentPuzzle.gameObject.SetActiveRecursively(true);
+	puzzles = new Array(whackAMolePuzzle.gameObject, tapPuzzle.gameObject);
+	PickNewPuzzle();
 }
 
 //call me when the puzzle is won
 function Win() {
-	animationManager.PuzzleWon();
 	currentPuzzle.gameObject.SetActiveRecursively(false);
+	yield animationManager.PuzzleWon();
+	PickNewPuzzle();
 }
 
 //call me when the puzzle is lost
 function Lose() {
-	animationManager.PuzzleLost();
 	currentPuzzle.gameObject.SetActiveRecursively(false);
+	yield animationManager.PuzzleLost();
+	PickNewPuzzle();	
+}
+
+function PickNewPuzzle() {
+	currentPuzzle = puzzles[UnityEngine.Random.Range(0, puzzles.length)];
+	currentPuzzle.gameObject.SetActiveRecursively(true);
 }

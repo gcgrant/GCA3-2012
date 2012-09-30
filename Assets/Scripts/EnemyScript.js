@@ -43,4 +43,6 @@ function Attack() {
 			yield WaitForSeconds( 1.0 / attackFPS );
 		}
 	}
+	idle = true;
+	return;
 }

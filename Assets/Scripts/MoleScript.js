@@ -9,7 +9,7 @@ private var state;
 private var delayAfterSmashRangeLow = 1;
 private var delayAfterSmashRangeHigh = 3;
 
-function Start () {
+function OnEnable () {
 	PopIn();
 }
 
