@@ -1,12 +1,15 @@
 #pragma strict
 
 public var meleeMan : MeleeAvatarScript;
-
+public var winLoseObject : GameObject;
 public var enemies : EnemyScript[];
+
+
 private var currentEnemy : int;
 
 function Start() {
 	currentEnemy = 0;
+	winLoseObject.SetActiveRecursively(false);
 	ActivateCurrentEnemy();
 }
 
@@ -14,7 +17,7 @@ function ActivateCurrentEnemy() {
 	enemies[currentEnemy].gameObject.SetActiveRecursively(true);
 }
 
-function PuzzleWon() {
+function PuzzleWon(puzzleManager : PuzzleManager) {
 	meleeMan.Smack();
 	yield enemies[currentEnemy].Die();
 	yield WaitForSeconds(1.5);
@@ -25,7 +28,8 @@ function PuzzleWon() {
 		ActivateCurrentEnemy();
 	}
 	else {
-		//game win!!!!!!!
+		winLoseObject.SetActiveRecursively(true);
+		puzzleManager.destroyPuzzles();
 	}
 }
 

@@ -18,8 +18,8 @@ var puzzleManager : PuzzleManager;
 public function Init(difficulty : String) {
 	numMolesSmashed = 0;
 	if (difficulty == "easy") {
-		delayLowerRange = 1;
-		delayUpperRange = 2.5;
+		delayLowerRange = 0.8;
+		delayUpperRange = 2;
 		numMoles = numMolesRemaining = 6;
 	}
 	else if (difficulty == "medium") {
