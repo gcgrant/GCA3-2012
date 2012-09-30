@@ -39,6 +39,9 @@ function Lose() {
 }
 
 function PickNewPuzzle() {
-	currentPuzzle = puzzles[UnityEngine.Random.Range(0, puzzles.length)];
+	var previousPuzzle = currentPuzzle;
+	while (currentPuzzle == previousPuzzle) {
+		currentPuzzle = puzzles[UnityEngine.Random.Range(0, puzzles.length)];
+	}
 	currentPuzzle.gameObject.SetActiveRecursively(true);
 }
