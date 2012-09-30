@@ -6,6 +6,7 @@ public var idleAnimation : AnimationClip;
 public var walkAnimation: AnimationClip;
 public var jumpAnimation : AnimationClip;
 public var smackAnimation : AnimationClip;
+public var damageAnimation : AnimationClip;
 
 private var _animation : Animation;
 
@@ -36,4 +37,8 @@ public function Smack() {
 
 public function Idle() {
 	_animation.CrossFade(idleAnimation.name);
+}
+
+public function Damaged() {
+	_animation.CrossFade(damageAnimation.name);
 }
