@@ -1,4 +1,7 @@
 #pragma strict
+var audioFX : AudioSource;
+
+var CollideSound : AudioClip;
 
 var targetItem : GameObject;
 var puzzleRoot : GameObject;
@@ -176,6 +179,9 @@ function handlePacketCollision() {
 		var deadGB : GameObject = packetHolder[toDelete];
 		packetHolder.RemoveAt(toDelete);
 		Destroy(deadGB);
+		if ( CollideSound != null ) {
+			audioFX.PlayOneShot(CollideSound);
+		}
 	}
 }
 

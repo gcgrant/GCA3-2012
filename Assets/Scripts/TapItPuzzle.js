@@ -1,5 +1,9 @@
 #pragma strict
+@script RequireComponent(AudioSource)
+
+var audioFX : AudioSource;
 //public
+public var audioFile : AudioClip[];
 public var touchCircle : GameObject;
 public var touchCircles : GameObject[];
 public var shrinkCircle : AnimationClip;
@@ -88,6 +92,7 @@ function Update ()
 	        Debug.DrawLine(ray.origin, ray.direction, Color.yellow, 5);
 	 		if(Physics.Raycast(ray.origin, ray.direction, hit)) 
 	 		{
+					audioFX.PlayOneShot(audioFile[_circleToActivateNext]);
 		   	 		touchCircles[_circleToActivateNext].renderer.material = successMaterial;
 		   	 		successfullyHit++;
 			}
@@ -98,9 +103,9 @@ function Update ()
 	   		var ray : Ray = puzzleCamera.ScreenPointToRay(touch.position);
 		   	 if(touch.phase == TouchPhase.Ended && Physics.Raycast(ray.origin, ray.direction, hit)) 
 		   	 {
+				audioFX.PlayOneShot(audioFile[_circleToActivateNext]);
 		   	 	touchCircles[_circleToActivateNext].renderer.material = successMaterial;
 		   	 	successfullyHit++;
-		   	 	
 			 }
 	    }
 		#endif
@@ -108,7 +113,7 @@ function Update ()
 	}
 
 	if (_circleToActivateNext >= _numOfCirclesToGenerate)
-	{
+	{		
 		if (successfullyHit == _numOfCirclesToGenerate)
 		{
 			puzzleManager.Win();
