@@ -1,5 +1,10 @@
 #pragma strict
 
+
+@script RequireComponent(AudioSource)
+var audioFX : AudioSource;
+public var audioFile : AudioClip;
+
 public var meleeMan : MeleeAvatarScript;
 public var winLoseObject : GameObject;
 public var enemies : EnemyScript[];
@@ -28,6 +33,8 @@ function PuzzleWon(puzzleManager : PuzzleManager) {
 		ActivateCurrentEnemy();
 	}
 	else {
+		audioFX.clip = audioFile;
+		audioFX.Play();
 		winLoseObject.SetActiveRecursively(true);
 		puzzleManager.destroyPuzzles();
 	}

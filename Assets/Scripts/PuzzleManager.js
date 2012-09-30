@@ -1,5 +1,9 @@
 #pragma strict
 
+@script RequireComponent(AudioSource)
+var audioFX : AudioSource;
+public var audioFile : AudioClip;
+
 var animationManager : AnimationManager;
 var heartManager : HeartManager;
 var winLoseScreen : GameObject;
@@ -35,9 +39,12 @@ function Lose() {
 		PickNewPuzzle();
 	}
 	else {
+		audioFX.clip = audioFile;
+		audioFX.Play();
 		winLoseScreen.renderer.material = loseMaterial;
 		winLoseScreen.SetActiveRecursively(true);
 		destroyPuzzles();
+		
 	}	
 }
 function destroyPuzzles()

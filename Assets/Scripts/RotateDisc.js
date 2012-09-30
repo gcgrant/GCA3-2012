@@ -202,14 +202,12 @@ function handleTouch() {
 			{
 				switch ( theTouch.phase ) {
 					case TouchPhase.Began : 
-					debugText.text = "vuttusk";
 						wasRotating = false;
 						break;
 					
 					case TouchPhase.Moved : 
 						//targetItem.transform.Rotate(theTouch.deltaPosition.y * rotationRate, -theTouch.deltaPosition.x * rotationRate,0,Space.World);
          				// rotation on Y axis
-						debugText.text = "vardarkl";
 						targetItem.transform.Rotate( 0, 0 , -theTouch.deltaPosition.x * rotationRate , Space.World ); 
          				// rotateAngle = rotateTransform( theTouch.deltaPosition.x , theTouch.deltaPosition.y );
 						//targetItem.transform.Rotate( 0, 0 , ro	tateAngle , Space.World ); 
@@ -229,7 +227,6 @@ function handleTouch() {
 					case TouchPhase.Canceled : 
 						if ( wasRotating == true )
 	         			{
-	         			debugText.text = "fcuck you!!!!!!!!!!!!!!!";
 	         				if(Mathf.Abs(theTouch.deltaPosition.x) >=10)
 	         				{
 	         					rotateVelocityX = theTouch.deltaPosition.x / theTouch.deltaTime;
