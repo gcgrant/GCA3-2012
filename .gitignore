@@ -2,3 +2,6 @@ Library/
 Temp/
 *.pidb
 .DS_Store
+Assembly-*
+*.sln
+*.userprefs

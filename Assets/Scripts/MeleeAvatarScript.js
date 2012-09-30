@@ -11,22 +11,11 @@ private var _animation : Animation;
 
 function Start () {
 	_animation = this.GetComponent(Animation);
-	Idle();
+	Run();
 }
 
 function Update () {
-	
-#if UNITY_EDITOR
-	if (Input.GetMouseButtonDown(0)) {
-		Run();
-	}
-#endif
-	
-	for (var touch : Touch in Input.touches) {
-		if (touch.phase == TouchPhase.Began) {
-			Run();
-		}
-	}
+
 }
 
 public function Run() {
