@@ -2,16 +2,18 @@
 
 public var meleeMan : MeleeAvatarScript;
 
-function Start () {
+public var enemies : EnemyScript[];
+private var currentEnemy : int;
 
+function Start() {
+	currentEnemy = 0;
+	enemies[currentEnemy].gameObject.SetActiveRecursively(true);
 }
 
-function Update () {
-
-}
 
 function PuzzleWon() {
 	meleeMan.Smack();
+	enemies[currentEnemy].Die();
 }
 
 function PuzzleLost() {

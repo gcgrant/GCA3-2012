@@ -11,7 +11,7 @@ private var _animation : Animation;
 
 function Start () {
 	_animation = this.GetComponent(Animation);
-	Idle();
+	Run();
 }
 
 function Update () {
