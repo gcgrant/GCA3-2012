@@ -19,12 +19,12 @@ var puzzleManager : PuzzleManager;
 public function Init(difficulty : String) {
 	if (difficulty == "easy") {
 		delayLowerRange = 2;
-		delayUpperRange = 4;
+		delayUpperRange = 3;
 		numMoles = numMolesRemaining = 10;
 	}
 	else if (difficulty == "medium") {
 		delayLowerRange = 1;
-		delayUpperRange = 3;
+		delayUpperRange = 2.5;
 		numMoles = numMolesRemaining = 15;
 	}
 	else if (difficulty == "hard") {
