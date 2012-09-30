@@ -16,6 +16,7 @@ var puzzleManager : PuzzleManager;
 
 //call me to Init, difficulty should be one of "easy", "medium", or "hard"
 public function Init(difficulty : String) {
+	numMolesSmashed = 0;
 	if (difficulty == "easy") {
 		delayLowerRange = 1.5;
 		delayUpperRange = 3;
