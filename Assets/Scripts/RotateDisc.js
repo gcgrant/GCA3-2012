@@ -2,7 +2,7 @@
 
 var targetItem : GameObject;
 var puzzleRoot : GameObject;
-var debugText : TextMeshgit;
+var debugText : TextMesh;
 var puzzleManager : PuzzleManager;
 
 //private var worldPos : Vector3;
@@ -17,16 +17,12 @@ private var targetCenterY : float;
 	
 //private var originalRotation : Quaternion;
 
-private var originalEuler : Vector3;
-private var rotationZ : float = 0f;
-
 private var pointsScored : int;
- 
 
 /************Scrolling inertia variables************/
 private var scrollPosition : Vector2 = Vector2.zero;
 private var scrollVelocity : float = 0;
-private var timeTouchPhaseEnded: float;
+private var timeTouchPhaseEnded: float = 0f;
 private var inertiaDuration : float = 0.5f;
 
 private var itemInertiaDuration : float = 1.0f;
@@ -43,16 +39,18 @@ var hit: RaycastHit;
 
 private var layerMask = (1 <<  8) | (1 << 2);
 
+function Start() {
+	layerMask =~ layerMask;	
+//	targetCenterX = targetItem.transform.position.x;
+//	targetCenterY = targetItem.transform.position.y;
+}
+
 // constructor - like thing
 function OnEnable () {
-	layerMask =~ layerMask;	
-	targetCenterX = targetItem.transform.position.x;
-	targetCenterY = targetItem.transform.position.y;
-	print( packetTypes[0].name );
-	print( packetTypes[1].name );
-	print( packetTypes[2].name );
-	
 	pointsScored = 50;
+	rotateAngle = 0f;
+	wasRotating = false;
+	
 	
 	// print( targetCenterY );
 	
@@ -81,9 +79,11 @@ function OnEnable () {
 }
 
 function OnDisable() {
-	for (var i = 0; i < packetHolder.length; i++) {
-		Destroy(packetHolder[i]);
-	}
+	for (var toDelete : int = 0; toDelete < packetHolder.length; toDelete += 1 ) {
+		var deadGB : GameObject = packetHolder[toDelete];
+		packetHolder.RemoveAt(toDelete);
+		Destroy(deadGB);
+	}	
 }
 
 function Update () {
@@ -116,7 +116,7 @@ function generateAndHandlePackets() {
 			clone.transform.parent = puzzleRoot.transform;
 			clone.transform.localRotation.eulerAngles += Vector3(0, 0, -180);
 			lastPacketOffset += 50 + Random.Range(1,5)*10;
-			clone.transform.localPosition += new Vector3(0, lastPacketOffset + this.transform.localPosition.y - 50 ,0);
+			clone.transform.localPosition += new Vector3(0, lastPacketOffset + this.transform.localPosition.y + 150 ,0);
 			// add it to the list
 			packetHolder.Push( clone );
 		} // for
@@ -156,7 +156,7 @@ function handlePacketCollision() {
 
 	
 	for (var Packet : GameObject in packetHolder ) {
-		if ( this.transform.localPosition.y - Packet.transform.localPosition.y >= -20 ) {
+		if ( this.transform.localPosition.y - Packet.transform.localPosition.y >= -60 ) {
 			lastHit += 1;
 			
 			//pointsScored += 10;
@@ -164,7 +164,7 @@ function handlePacketCollision() {
 			if ( pType == Packet.GetComponent(PacketScript).pType) {
 				pointsScored += 10;
 			} else {
-				pointsScored -= 10;
+				pointsScored -= 20;
 			}
 			break;
 		}
@@ -196,15 +196,15 @@ function handleTouch() {
 			{
 				switch ( theTouch.phase ) {
 					case TouchPhase.Began : 
+					debugText.text = "vuttusk";
 						wasRotating = false;
 						break;
 					
 					case TouchPhase.Moved : 
 						//targetItem.transform.Rotate(theTouch.deltaPosition.y * rotationRate, -theTouch.deltaPosition.x * rotationRate,0,Space.World);
          				// rotation on Y axis
-
+						debugText.text = "vardarkl";
 						targetItem.transform.Rotate( 0, 0 , -theTouch.deltaPosition.x * rotationRate , Space.World ); 
-						
          				// rotateAngle = rotateTransform( theTouch.deltaPosition.x , theTouch.deltaPosition.y );
 						//targetItem.transform.Rotate( 0, 0 , ro	tateAngle , Space.World ); 
          				
@@ -223,6 +223,7 @@ function handleTouch() {
 					case TouchPhase.Canceled : 
 						if ( wasRotating == true )
 	         			{
+	         			debugText.text = "fcuck you!!!!!!!!!!!!!!!";
 	         				if(Mathf.Abs(theTouch.deltaPosition.x) >=10)
 	         				{
 	         					rotateVelocityX = theTouch.deltaPosition.x / theTouch.deltaTime;
@@ -254,7 +255,6 @@ function handleTouch() {
          		if(t >= inertiaDuration)
          			scrollVelocity = 0.0f;
          				
-         				
          	}	
          
             if(rotateVelocityX != 0.0f || rotateVelocityY != 0.0f)
@@ -264,7 +264,6 @@ function handleTouch() {
          		var XVelocity : float = Mathf.Lerp(rotateVelocityX, 0 , ty);
          		var YVelocity : float = Mathf.Lerp(rotateVelocityY, 0 , ty); 	
          		
-         				
          		if(ty >= inertiaDuration)
          		{
          			rotateVelocityX = 0.0f;
