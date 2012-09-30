@@ -1,8 +1,14 @@
 #pragma strict
+@script RequireComponent(AudioSource)
 
 var inMaterial : Material;
 var outMaterial : Material;
 var smashMaterial : Material;
+
+var audioFX : AudioSource;
+
+var SpawnSound : AudioClip;
+var DeathSound : AudioClip;
 
 private var state;
 
@@ -22,6 +28,8 @@ private function PopIn() {
 		return;
 	}
 	//Debug.Log("Popping in" + this.name);
+	
+	
 	renderer.material = inMaterial;
 	state = "in";
 }
@@ -29,6 +37,9 @@ private function PopIn() {
 function PopOut(delayLowerRange : float, delayUpperRange : float) {
 	if (state == "out") {
 		return;
+	}
+	if ( SpawnSound != null ) {
+		audioFX.PlayOneShot(SpawnSound);
 	}
 	//Debug.Log("popping out" + this.name);
 	renderer.material = outMaterial;
@@ -42,6 +53,9 @@ function PopOut(delayLowerRange : float, delayUpperRange : float) {
 function Smashed(delayLowerRange : float, delayUpperRange : float) {
 	if (state != "out") {
 		return;
+	}
+	if ( DeathSound != null ) {
+		audioFX.PlayOneShot(DeathSound);
 	}
 	//Debug.Log("smashed" + this.name);
 	renderer.material = smashMaterial;
