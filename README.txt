@@ -5,7 +5,7 @@ Tommy Chong -- tcchong@uwaterloo.ca
 Nick Ma -- syma@uwaterloo.ca
 
 Our game -- Puzzle Smash:
-	The game is played by trying to win the puzzles that occur on the lower part of the screen. When a puzzle is completed successfully, the engineer on top will defeat the monster he's fighting, and if the puzzle is failed then the monster will attack him and he'll lose a heart. The game is won by getting to the end of the enemies (currently there are 4), and lost by losing all three hearts.
+	The game is played by trying to win the puzzles that occur on the lower part of the screen. When a puzzle is completed successfully, the avatar on top will defeat the monster he's fighting, and if the puzzle is failed then the monster will attack him and he'll lose a heart. The game is won by getting to the end of the enemies (currently there are 4), and lost by losing all three hearts.
 	The three puzzles currently in the game are:
 		- Whack-a-mole (self explanatory)
 		- Tap-it (tap the circles in time and in order, like a rhythm game)
