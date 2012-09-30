@@ -2,8 +2,8 @@
 
 var targetItem : GameObject;
 var puzzleRoot : GameObject;
-var debugText : GUIText;
-
+var debugText : TextMeshgit;
+var puzzleManager : PuzzleManager;
 
 //private var worldPos : Vector3;
 //var lastMousePosition : Vector3;
@@ -20,7 +20,7 @@ private var targetCenterY : float;
 private var originalEuler : Vector3;
 private var rotationZ : float = 0f;
 
-private var pointsScored : int = 0;
+private var pointsScored : int;
  
 
 /************Scrolling inertia variables************/
@@ -52,7 +52,7 @@ function OnEnable () {
 	print( packetTypes[1].name );
 	print( packetTypes[2].name );
 	
-	pointsScored = 0;
+	pointsScored = 50;
 	
 	// print( targetCenterY );
 	
@@ -80,11 +80,24 @@ function OnEnable () {
 	print( a );*/
 }
 
+function OnDisable() {
+	for (var i = 0; i < packetHolder.length; i++) {
+		Destroy(packetHolder[i]);
+	}
+}
+
 function Update () {
 	handleTouch();
 	//targetItem.transform.localRotation.z += 0.1*Time.deltaTime;
 	generateAndHandlePackets();
 	handlePacketCollision();
+	
+	if (pointsScored <= 0) {
+		puzzleManager.Lose();
+	}
+	else if (pointsScored >= 100) {
+		puzzleManager.Win();
+	}
 
 } // update
 
@@ -95,7 +108,7 @@ function generateAndHandlePackets() {
 		var clone : GameObject; 
 		var numPackets : int = Random.Range(0,4) + 2; // how many packets to generate this round
 		
-		var lastPacketOffset : int = 0;
+		var lastPacketOffset : int = -50;
 		
 		for (var curPacket : int = 0; curPacket < numPackets ; curPacket += 1) {
 			// ptr* to newly cloned instance
@@ -103,7 +116,7 @@ function generateAndHandlePackets() {
 			clone.transform.parent = puzzleRoot.transform;
 			clone.transform.localRotation.eulerAngles += Vector3(0, 0, -180);
 			lastPacketOffset += 50 + Random.Range(1,5)*10;
-			clone.transform.position += new Vector3(0, 200 + lastPacketOffset ,60);
+			clone.transform.localPosition += new Vector3(0, lastPacketOffset + this.transform.localPosition.y - 50 ,0);
 			// add it to the list
 			packetHolder.Push( clone );
 		} // for
@@ -143,7 +156,7 @@ function handlePacketCollision() {
 
 	
 	for (var Packet : GameObject in packetHolder ) {
-		if ( Packet.transform.position.y <= -20 ) {
+		if ( this.transform.localPosition.y - Packet.transform.localPosition.y >= -20 ) {
 			lastHit += 1;
 			
 			//pointsScored += 10;
@@ -151,8 +164,9 @@ function handlePacketCollision() {
 			if ( pType == Packet.GetComponent(PacketScript).pType) {
 				pointsScored += 10;
 			} else {
-				
+				pointsScored -= 10;
 			}
+			break;
 		}
 	}
 	
