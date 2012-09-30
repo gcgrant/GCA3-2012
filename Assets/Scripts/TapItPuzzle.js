@@ -12,9 +12,10 @@ private var _numOfCirclesToGenerate : int;
 private var _circleToActivateNext : int;
 private var currentlyAnimating : boolean;
 private var hit : RaycastHit;
-
+private var successfullyHit : int;
 function Start () {
 	//_animation = touchCircles[0].GetComponent(Animation);
+	successfullyHit = 0;
 	touchCircle.SetActiveRecursively(false);
 	_numOfCirclesToGenerate = Mathf.Floor(Random.Range(3,7));
 	_circleToActivateNext = 0;
@@ -78,13 +79,9 @@ function Update ()
 	        Debug.DrawLine(ray.origin, ray.direction, Color.yellow, 5);
 	 		if(Physics.Raycast(ray.origin, ray.direction, hit)) 
 	 		{
-		   	 
 		   	 		touchCircles[_circleToActivateNext].renderer.material = successMaterial;
-		
-		   	 	
-		   	 		
-		   	 	
-			 }
+		   	 		successfullyHit++;
+			}
 	    }
 		#else
 	    for (var touch: Touch in Input.touches) 
@@ -93,6 +90,7 @@ function Update ()
 		   	 if(touch.phase == TouchPhase.Ended && Physics.Raycast(ray.origin, ray.direction, hit)) 
 		   	 {
 		   	 	touchCircles[_circleToActivateNext].renderer.material = successMaterial;
+		   	 	successfullyHit++;
 		   	 	
 			 }
 	    }
@@ -102,6 +100,14 @@ function Update ()
 
 	if (_circleToActivateNext >= _numOfCirclesToGenerate)
 	{
+		if (successfullyHit == _numOfCirclesToGenerate)
+		{
+			PuzzleManager.Win();
+		}
+		else
+		{
+			PuzzleManager.Lose();
+		}
 	}
 	
 	
