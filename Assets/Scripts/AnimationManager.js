@@ -7,17 +7,26 @@ private var currentEnemy : int;
 
 function Start() {
 	currentEnemy = 0;
+	ActivateCurrentEnemy();
+}
+
+function ActivateCurrentEnemy() {
 	enemies[currentEnemy].gameObject.SetActiveRecursively(true);
 }
 
 
 function PuzzleWon() {
 	meleeMan.Smack();
-	enemies[currentEnemy].Die();
+	yield enemies[currentEnemy].Die();
+	if (currentEnemy < enemies.Length - 1) {
+		currentEnemy++;
+		ActivateCurrentEnemy();
+	}
 }
 
 function PuzzleLost() {
 	meleeMan.Walk();
+	enemies[currentEnemy].Attack();
 }
 
 

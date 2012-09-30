@@ -27,7 +27,7 @@ private function PopIn() {
 }
 
 function PopOut(delayLowerRange : float, delayUpperRange : float) {
-	if (state != "in") {
+	if (state == "out") {
 		return;
 	}
 	//Debug.Log("popping out" + this.name);

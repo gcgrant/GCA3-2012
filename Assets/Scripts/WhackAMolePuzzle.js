@@ -2,7 +2,6 @@
 
 var touchCamera : Camera;
 private var hit : RaycastHit;
-private var ray : Ray;
 
 var moles : MoleScript[];
 private var delayLowerRange = 2;
@@ -65,9 +64,6 @@ function Update () {
 	   	 if(touch.phase == TouchPhase.Ended && Physics.Raycast(ray.origin, ray.direction, hit)) {
 	   	 	HitMole(hit.collider.GetComponent(MoleScript));
 		 }
-		 else if (touch.phase == TouchPhase.Ended && !Physics.Raycast(ray.origin, ray.direction, hit)) {
-   			 Debug.Log("tap cancelled");
-		 }
     }
 #endif
     
@@ -91,14 +87,12 @@ function Update () {
     
     if (active == false) {
 	    //pop out a random mole
-	    while (lastIndex == index) {
+	    while (lastIndex == index || moles[index].GetState() == "out") {
 			index = Mathf.Floor( UnityEngine.Random.Range(0, moles.length) );
 		}
-		if (moles[index].GetState() == "in") {
-			moles[index].PopOut(delayLowerRange, delayUpperRange);
-			numMolesRemaining--;
-			lastIndex = index;
-		}
+		moles[index].PopOut(delayLowerRange, delayUpperRange);
+		numMolesRemaining--;
+		lastIndex = index;
 	}
 }
 
