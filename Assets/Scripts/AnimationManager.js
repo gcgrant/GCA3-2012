@@ -34,8 +34,10 @@ function PuzzleWon(puzzleManager : PuzzleManager) {
 }
 
 function PuzzleLost() {
-	meleeMan.Walk();
+	meleeMan.Damaged();
 	yield enemies[currentEnemy].Attack();
+	meleeMan.Walk();
+
 }
 
 
