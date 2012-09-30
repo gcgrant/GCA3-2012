@@ -47,7 +47,9 @@
      <Compile Include="Assets\Scripts\AnimationManager.js" />
      <Compile Include="Assets\Scripts\BackgroundScroller.js" />
      <Compile Include="Assets\Scripts\MeleeAvatarScript.js" />
+     <Compile Include="Assets\Scripts\MoleScript.js" />
      <Compile Include="Assets\Scripts\PuzzleManager.js" />
+     <Compile Include="Assets\Scripts\WhackAMolePuzzle.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">

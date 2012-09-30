@@ -15,18 +15,7 @@ function Start () {
 }
 
 function Update () {
-	
-#if UNITY_EDITOR
-	if (Input.GetMouseButtonDown(0)) {
-		Run();
-	}
-#endif
-	
-	for (var touch : Touch in Input.touches) {
-		if (touch.phase == TouchPhase.Began) {
-			Run();
-		}
-	}
+
 }
 
 public function Run() {
