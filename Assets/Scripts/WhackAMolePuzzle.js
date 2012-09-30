@@ -20,17 +20,17 @@ public function Init(difficulty : String) {
 	if (difficulty == "easy") {
 		delayLowerRange = 2;
 		delayUpperRange = 3;
-		numMoles = numMolesRemaining = 10;
+		numMoles = numMolesRemaining = 12;
 	}
 	else if (difficulty == "medium") {
 		delayLowerRange = 1;
 		delayUpperRange = 2.5;
-		numMoles = numMolesRemaining = 15;
+		numMoles = numMolesRemaining = 14;
 	}
 	else if (difficulty == "hard") {
-		delayLowerRange = 0.5;
+		delayLowerRange = 0.75;
 		delayUpperRange = 2;
-		numMoles = numMolesRemaining = 20;
+		numMoles = numMolesRemaining = 16;
 	}
 	else {
 		Debug.LogError("Incorrect difficulty value.");
