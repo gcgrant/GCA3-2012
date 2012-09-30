@@ -18,6 +18,7 @@ function ActivateCurrentEnemy() {
 function PuzzleWon() {
 	meleeMan.Smack();
 	yield enemies[currentEnemy].Die();
+	yield WaitForSeconds(1);
 	enemies[currentEnemy].gameObject.SetActiveRecursively(false);
 	if (currentEnemy < enemies.Length - 1) {
 		currentEnemy++;
