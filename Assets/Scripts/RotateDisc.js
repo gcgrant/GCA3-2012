@@ -42,6 +42,7 @@ private var layerMask = (1 <<  8) | (1 << 2);
 function Start() {
 //	targetCenterX = targetItem.transform.position.x;
 //	targetCenterY = targetItem.transform.position.y;
+	layerMask =~layerMask;
 }
 
 // constructor - like thing
