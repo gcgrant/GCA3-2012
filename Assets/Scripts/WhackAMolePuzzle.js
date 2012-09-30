@@ -18,19 +18,19 @@ var puzzleManager : PuzzleManager;
 public function Init(difficulty : String) {
 	numMolesSmashed = 0;
 	if (difficulty == "easy") {
-		delayLowerRange = 1.5;
-		delayUpperRange = 3;
-		numMoles = numMolesRemaining = 12;
-	}
-	else if (difficulty == "medium") {
 		delayLowerRange = 1;
 		delayUpperRange = 2.5;
-		numMoles = numMolesRemaining = 14;
+		numMoles = numMolesRemaining = 6;
+	}
+	else if (difficulty == "medium") {
+		delayLowerRange = 0.8;
+		delayUpperRange = 2;
+		numMoles = numMolesRemaining = 7;
 	}
 	else if (difficulty == "hard") {
-		delayLowerRange = 0.75;
-		delayUpperRange = 2;
-		numMoles = numMolesRemaining = 16;
+		delayLowerRange = 0.5;
+		delayUpperRange = 1.5;
+		numMoles = numMolesRemaining = 8;
 	}
 	else {
 		Debug.LogError("Incorrect difficulty value.");
