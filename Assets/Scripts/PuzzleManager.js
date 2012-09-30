@@ -1,6 +1,7 @@
 #pragma strict
 
 var animationManager : AnimationManager;
+var heartManager : HeartManager;
 
 var whackAMolePuzzle : WhackAMolePuzzle;
 var tapPuzzle : TapItPuzzle;
@@ -28,7 +29,13 @@ function Win() {
 function Lose() {
 	currentPuzzle.gameObject.SetActiveRecursively(false);
 	yield animationManager.PuzzleLost();
-	PickNewPuzzle();	
+	var heartsLeft = heartManager.TakeHeart();
+	if (heartsLeft) { 
+		PickNewPuzzle();
+	}
+	else {
+		//GameOver
+	}	
 }
 
 function PickNewPuzzle() {
